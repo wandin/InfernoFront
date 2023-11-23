@@ -25,7 +25,7 @@ void AIFCharacter_Player::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
 
-	// Initi Ability actor info for Server
+	// Init Ability actor info for Server
 	InitAbilityActorInfo();
 }
 
@@ -39,9 +39,9 @@ void AIFCharacter_Player::OnRep_PlayerState()
 
 void AIFCharacter_Player::InitAbilityActorInfo()
 {
-	AIFPlayerState* IFPlayerState = GetPlayerState<AIFPlayerState>();
-	check(IFPlayerState);
-	IFPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(IFPlayerState, this);
-	AbilitySystemComponent = IFPlayerState->GetAbilitySystemComponent();
-	AttributeSet = IFPlayerState->GetAttributeSet();
+	AIFPlayerState* IfPlayerState = GetPlayerState<AIFPlayerState>();
+	check(IfPlayerState);
+	IfPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(IfPlayerState, this);
+	AbilitySystemComponent = IfPlayerState->GetAbilitySystemComponent();
+	AttributeSet = IfPlayerState->GetAttributeSet();
 }
