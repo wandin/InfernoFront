@@ -5,7 +5,9 @@
 
 #include "AbilitySystemComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "PlayerController/IFPlayerController.h"
 #include "PlayerStates/IFPlayerState.h"
+#include "UI/IF_HUD.h"
 
 AIFCharacter_Player::AIFCharacter_Player()
 {
@@ -44,4 +46,12 @@ void AIFCharacter_Player::InitAbilityActorInfo()
 	IfPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(IfPlayerState, this);
 	AbilitySystemComponent = IfPlayerState->GetAbilitySystemComponent();
 	AttributeSet = IfPlayerState->GetAttributeSet();
+
+	if(AIFPlayerController* IFPlayerController = Cast<AIFPlayerController>(GetController()))
+	{
+		if(AIF_HUD* HUD = Cast<AIF_HUD>(IFPlayerController->GetHUD()))
+		{
+			HUD->InitOverlay(IFPlayerController, IfPlayerState, AbilitySystemComponent, AttributeSet);
+		}
+	}
 }

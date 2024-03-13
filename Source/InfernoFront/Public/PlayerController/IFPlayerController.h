@@ -7,10 +7,12 @@
 #include "IFPlayerController.generated.h"
 
 
-class IIFInterface_Enemy;
 struct FInputActionValue;
+
+class IIFInterface_Enemy;
 class UInputAction;
 class UInputMappingContext;
+class UNiagaraSystem;
 
 /**
  * 
@@ -28,6 +30,21 @@ protected:
 	
 	virtual void SetupInputComponent() override;
 	
+	/** FX Class that we will spawn when clicking */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
+	UNiagaraSystem* FXCursor;
+
+	/** Time Threshold to know if it was a short press */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
+	float ShortPressThreshold;
+	
+	/** True if the controlled character should navigate to the mouse cursor. */
+	uint32 bMoveToMouseCursor : 1;
+	
+	/** Input handlers for SetDestination action. */
+	void OnSetDestinationTriggered();
+	void OnSetDestinationReleased();
+	
 private:
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputMappingContext> IFInputContext;
@@ -35,10 +52,18 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputAction> MoveAction;
 
+	/** Jump Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UInputAction* MoveOnMouseClick;
+	
 	void Move(const FInputActionValue& InputActionValue);
 
 	void CursorTrace();
 	
-	IIFInterface_Enemy* LastActor;
-	IIFInterface_Enemy* ThisActor;
+	TObjectPtr<IIFInterface_Enemy> LastActor;
+	TObjectPtr<IIFInterface_Enemy> ThisActor;
+
+	FVector CachedDestination;
+
+	float FollowTime; // For how long it has been pressed
 };
