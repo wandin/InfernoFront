@@ -59,9 +59,9 @@ private:
 	void Move(const FInputActionValue& InputActionValue);
 
 	void CursorTrace();
-	
-	TObjectPtr<IIFInterface_Enemy> LastActor;
-	TObjectPtr<IIFInterface_Enemy> ThisActor;
+
+	IIFInterface_Enemy* LastActor;
+	IIFInterface_Enemy* ThisActor;
 
 	FVector CachedDestination;
 

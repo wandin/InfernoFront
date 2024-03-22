@@ -6,6 +6,11 @@
 #include "AbilitySystem/AbilitySystemComponents/IFAbilitySystemComponent.h"
 #include "AbilitySystem/AttributeSets/IFAttributeSet.h"
 
+#include "Components/PostProcessComponent.h"
+
+
+#include "InfernoFront/InfernoFront.h"
+
 AIFCharacter_Enemy::AIFCharacter_Enemy()
 {
 	GetMesh()->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
@@ -14,20 +19,18 @@ AIFCharacter_Enemy::AIFCharacter_Enemy()
 	AbilitySystemComponent->SetIsReplicated(true);
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 
-	AttributeSet = CreateDefaultSubobject<UIFAttributeSet>("AttributeSet");
+	AttributeSet = CreateDefaultSubobject<UIFAttributeSet>("AttributeSet");	
 }
 
 void AIFCharacter_Enemy::HighlightActor()
 {
 	GetMesh()->SetRenderCustomDepth(true);
-	GetMesh()->SetCustomDepthStencilValue(250);
-
+	GetMesh()->SetCustomDepthStencilValue(CUSTOM_DEPTH_RED);
 	if(Weapon)
 	{
-		Weapon->SetRenderCustomDepth(true);
-		Weapon->SetCustomDepthStencilValue(250);
+	Weapon->SetRenderCustomDepth(true);
+	Weapon->SetCustomDepthStencilValue(CUSTOM_DEPTH_RED);
 	}
-
 }
 
 void AIFCharacter_Enemy::UnHighlightActor()
