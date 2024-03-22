@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "AbilitySystemComponent.h"
 #include "AttributeSet.h"
+#include "GameplayEffectExtension.h"
 #include "IFAttributeSet.generated.h"
 
 
@@ -14,9 +15,36 @@
 		GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 		GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
-/**
- * 
- */
+USTRUCT()
+struct FEffectProperties
+{
+	GENERATED_BODY()
+	
+	FEffectProperties(){}
+
+	FGameplayEffectContextHandle EffectContextHandle;
+
+	UPROPERTY()
+	UAbilitySystemComponent* SourceAbilitySystemComp = nullptr;
+	UPROPERTY()
+	AActor*	SourceAvatarActor = nullptr;
+	UPROPERTY()
+	AController* SourceController = nullptr;
+	UPROPERTY()
+	ACharacter* SourceCharacter = nullptr;
+
+	UPROPERTY()
+	UAbilitySystemComponent* TargeAbilitySystemComp = nullptr;
+	UPROPERTY()
+	AActor*	TargetAvatarActor = nullptr;
+	UPROPERTY()
+	AController* TargetController = nullptr;
+	UPROPERTY()
+	ACharacter* TargetCharacter = nullptr;
+};
+
+
+/**/
 UCLASS()
 class INFERNOFRONT_API UIFAttributeSet : public UAttributeSet
 {
@@ -27,7 +55,19 @@ public:
 	UIFAttributeSet();
 	
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
-
+	/**
+	 * @brief Pre AttributeChange basically was created to clamp values before it changes, so we clamp our values to not exceed it's maximum values.
+	 * @param Attribute 
+	 * @param NewValue 
+	 */
+	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
+	/**
+	 * @brief PostGameplayEffectExecute would be a great way to customize how effects could be changed based on something.
+	 * Perhaps if our level is greater than something - we do something different, magnitude increases more, we cause more damage.. that kind of stuff
+	 * @param Data 
+	 */
+	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
+	
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Health, Category = "Vital Attributes")
 	FGameplayAttributeData Health;
 	ATTRIBUTE_ACCESSORS(UIFAttributeSet, Health);
@@ -53,4 +93,9 @@ public:
 	void OnRep_Mana(const FGameplayAttributeData& OldMana) const;
 	UFUNCTION()
 	void OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) const;
+
+
+private:
+
+	void SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props) const;
 };
