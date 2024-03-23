@@ -9,10 +9,7 @@ void UOverlayWidgetController::BroadcastInitialValues()
 {
 	
 	const UIFAttributeSet* IFAttributeSet = CastChecked<UIFAttributeSet>(AttributeSet);
-	// if(IFAttributeSet)
-	// {
-	//
-	// }
+
 	OnHealthChanged.Broadcast(IFAttributeSet->GetHealth());
 	OnMaxHealthChanged.Broadcast(IFAttributeSet->GetMaxHealth());
 	OnManaChanged.Broadcast(IFAttributeSet->GetMana());
@@ -35,20 +32,24 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 
 void UOverlayWidgetController::HealthChanged(const FOnAttributeChangeData& Data) const
 {
+	// Broadcast health attribute change event
 	OnHealthChanged.Broadcast(Data.NewValue);
 }
 
 void UOverlayWidgetController::MaxHealthChanged(const FOnAttributeChangeData& Data) const
 {
+	// Broadcast max health attribute change event
 	OnMaxHealthChanged.Broadcast(Data.NewValue);
 }
 
 void UOverlayWidgetController::ManaChanged(const FOnAttributeChangeData& Data) const
 {
+	// Broadcast mana attribute change event
 	OnManaChanged.Broadcast(Data.NewValue);
 }
 
 void UOverlayWidgetController::MaxManaChanged(const FOnAttributeChangeData& Data) const
 {
+	// Broadcast max mana attribute change event
 	OnMaxManaChanged.Broadcast(Data.NewValue);
 }

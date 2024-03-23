@@ -11,12 +11,12 @@
 
 AIFCharacter_Player::AIFCharacter_Player()
 {
-
+	// Configure character movement settings
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->RotationRate = FRotator(0.f, 400.f, 0.f);
 	GetCharacterMovement()->bConstrainToPlane = true;
 	GetCharacterMovement()->bSnapToPlaneAtStart = true;
-
+	// Disable controller rotation
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationRoll = false;
 	bUseControllerRotationYaw = false;
@@ -41,12 +41,16 @@ void AIFCharacter_Player::OnRep_PlayerState()
 
 void AIFCharacter_Player::InitAbilityActorInfo()
 {
+	// Retrieve the player state
 	AIFPlayerState* IfPlayerState = GetPlayerState<AIFPlayerState>();
 	check(IfPlayerState);
+	
+	// Initialize ability actor info using the player state's ability system component
 	IfPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(IfPlayerState, this);
 	AbilitySystemComponent = IfPlayerState->GetAbilitySystemComponent();
 	AttributeSet = IfPlayerState->GetAttributeSet();
 
+	// Initialize the overlay HUD for the player controller
 	if(AIFPlayerController* IFPlayerController = Cast<AIFPlayerController>(GetController()))
 	{
 		if(AIF_HUD* HUD = Cast<AIF_HUD>(IFPlayerController->GetHUD()))

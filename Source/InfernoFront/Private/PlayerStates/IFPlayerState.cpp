@@ -8,12 +8,15 @@
 
 AIFPlayerState::AIFPlayerState()
 {
+	// Create and initialize the ability system component
 	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>("AbilitySystemComponent");
 	AbilitySystemComponent->SetIsReplicated(true);
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
 
+	// Create and initialize the attribute set
 	AttributeSet = CreateDefaultSubobject<UIFAttributeSet>("AttributeSet");
-	
+
+	// Set the network update frequency
 	NetUpdateFrequency = 100.f;
 }
 

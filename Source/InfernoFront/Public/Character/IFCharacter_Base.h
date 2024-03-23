@@ -19,6 +19,10 @@ public:
 	AIFCharacter_Base();
 
 	/*	G A S */
+	/**
+	 * @brief 
+	 * @return AbilitySystemComponent
+	 */
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	UAttributeSet* GetAttributeSet() const { return AttributeSet; }
 	

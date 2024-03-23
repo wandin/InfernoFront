@@ -20,7 +20,15 @@ public:
 	AIFCharacter_Enemy();
 	
 	/* Enemy Interface */
+	/**
+	 * @brief Function to highlight the actor.
+	 *        Highlights the enemy character for visual identification.
+	 */
 	virtual void HighlightActor() override;
+	/**
+	 * @brief Function to remove highlighting from the actor.
+	 *        Removes the highlight effect from the enemy character.
+	 */
 	virtual void UnHighlightActor() override;
 	/* end Enemy interface */
 

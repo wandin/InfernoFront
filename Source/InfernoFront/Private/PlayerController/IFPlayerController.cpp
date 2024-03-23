@@ -98,6 +98,7 @@ void AIFPlayerController::CursorTrace()
 	*		- Do nothing
 	*/
 
+	// Handle highlighting/unhighlighting based on cursor trace results as described above
 	if(LastActor == nullptr)
 	{
 		if(ThisActor != nullptr)

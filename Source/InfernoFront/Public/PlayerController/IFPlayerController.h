@@ -15,7 +15,7 @@ class UInputMappingContext;
 class UNiagaraSystem;
 
 /**
- * 
+ * @brief Player controller class responsible for handling player input and interaction.
  */
 UCLASS()
 class INFERNOFRONT_API AIFPlayerController : public APlayerController
@@ -27,7 +27,8 @@ public:
 	virtual void PlayerTick(float DeltaTime) override;
 protected:
 	virtual void BeginPlay() override;
-	
+
+	/** Set up input bindings */
 	virtual void SetupInputComponent() override;
 	
 	/** FX Class that we will spawn when clicking */
@@ -46,24 +47,31 @@ protected:
 	void OnSetDestinationReleased();
 	
 private:
+	/** Input context for the player controller */
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputMappingContext> IFInputContext;
 
+	/** Input action for movement */
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputAction> MoveAction;
 
-	/** Jump Input Action */
+	/** Input action for moving character on mouse click */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	UInputAction* MoveOnMouseClick;
-	
+
+	/** Function to handle character movement */
 	void Move(const FInputActionValue& InputActionValue);
 
+	/** Function to trace cursor and handle highlighting/unhighlighting of actors */
 	void CursorTrace();
 
+	/** Actors used for tracing cursor position */
 	IIFInterface_Enemy* LastActor;
 	IIFInterface_Enemy* ThisActor;
 
+	/** Cached destination for character movement */
 	FVector CachedDestination;
 
-	float FollowTime; // For how long it has been pressed
+	/** Time for how long the mouse button has been pressed */
+	float FollowTime;
 };

@@ -7,6 +7,9 @@
 #include "IFInterface_Enemy.generated.h"
 
 // This class does not need to be modified.
+/**
+ * @brief Interface for enemy actors.
+ */
 UINTERFACE(MinimalAPI)
 class UIFInterface_Enemy : public UInterface
 {
@@ -14,17 +17,18 @@ class UIFInterface_Enemy : public UInterface
 };
 
 /**
- * 
+ * @brief Interface functions for enemy actors.
+ *        Classes implementing this interface must provide implementations for these functions.
  */
 class INFERNOFRONT_API IIFInterface_Enemy
 {
 	GENERATED_BODY()
 
-	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 
-
+	/** Function to highlight the actor. */
 	virtual void HighlightActor() = 0;
+	/** Function to remove highlighting from the actor. */
 	virtual void UnHighlightActor() = 0;
 
 };
