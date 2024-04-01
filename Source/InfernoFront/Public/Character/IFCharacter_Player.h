@@ -30,6 +30,7 @@ public:
 
 private:
 
-	void InitAbilityActorInfo();
-	
+	// This function was only set in this class, but now is set on parent's class to easily be called from inherited, such as player class(this), and other character classes
+	virtual void InitAbilityActorInfo() override;
+
 };

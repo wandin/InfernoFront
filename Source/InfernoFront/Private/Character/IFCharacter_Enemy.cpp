@@ -7,6 +7,8 @@
 #include "AbilitySystem/AttributeSets/IFAttributeSet.h"
 #include "InfernoFront/InfernoFront.h"
 
+#include "PlayerStates/IFPlayerState.h"
+
 AIFCharacter_Enemy::AIFCharacter_Enemy()
 {
 	// Set mesh collision response
@@ -46,6 +48,15 @@ void AIFCharacter_Enemy::UnHighlightActor()
 void AIFCharacter_Enemy::BeginPlay()
 {
 	Super::BeginPlay();
+	InitAbilityActorInfo();
+}
+
+void AIFCharacter_Enemy::InitAbilityActorInfo()
+{
 	// Initialize Ability Actor Info
 	AbilitySystemComponent->InitAbilityActorInfo(this, this);
+
+	// setAbilityActorInfo in AbilitySystemComponent, used to bind to delegates for now. 
+	Cast<UIFAbilitySystemComponent>(AbilitySystemComponent)->AbilityActorInfoSet();
+
 }

@@ -4,6 +4,9 @@
 #include "Character/IFCharacter_Player.h"
 
 #include "AbilitySystemComponent.h"
+
+#include "AbilitySystem/AbilitySystemComponents/IFAbilitySystemComponent.h"
+
 #include "GameFramework/CharacterMovementComponent.h"
 #include "PlayerController/IFPlayerController.h"
 #include "PlayerStates/IFPlayerState.h"
@@ -47,6 +50,9 @@ void AIFCharacter_Player::InitAbilityActorInfo()
 	
 	// Initialize ability actor info using the player state's ability system component
 	IfPlayerState->GetAbilitySystemComponent()->InitAbilityActorInfo(IfPlayerState, this);
+	
+	Cast<UIFAbilitySystemComponent>(IfPlayerState->GetAbilitySystemComponent())->AbilityActorInfoSet();
+	
 	AbilitySystemComponent = IfPlayerState->GetAbilitySystemComponent();
 	AttributeSet = IfPlayerState->GetAttributeSet();
 

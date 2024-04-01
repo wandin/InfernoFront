@@ -38,4 +38,8 @@ protected:
 
 	UPROPERTY()
 	TObjectPtr<UAttributeSet> AttributeSet;
+
+	// making a virtual function in base character to be called from our character class and other characters, as enemies
+	virtual	void InitAbilityActorInfo();
+
 };

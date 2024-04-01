@@ -13,5 +13,18 @@ UCLASS()
 class INFERNOFRONT_API UIFAbilitySystemComponent : public UAbilitySystemComponent
 {
 	GENERATED_BODY()
-	
+
+public:
+
+	void AbilityActorInfoSet();
+
+
+protected:
+	/**
+	 * @brief  Delegate for when an effect is applied 
+	 * @param AbilitySystemComponent 
+	 * @param EffectSpec 
+	 * @param ActiveEffectHandle 
+	 */
+	void EffectApplied(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle);
 };

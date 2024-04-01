@@ -24,3 +24,8 @@ void AIFCharacter_Base::BeginPlay()
 	Super::BeginPlay();
 	
 }
+
+void AIFCharacter_Base::InitAbilityActorInfo()
+{
+	
+}
