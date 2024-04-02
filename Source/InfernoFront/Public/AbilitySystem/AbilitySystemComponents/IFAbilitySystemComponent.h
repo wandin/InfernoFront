@@ -6,6 +6,8 @@
 #include "AbilitySystemComponent.h"
 #include "IFAbilitySystemComponent.generated.h"
 
+DECLARE_MULTICAST_DELEGATE_OneParam(FEffectAssetTags, const FGameplayTagContainer&); // To broadcast a container of Tags.
+
 /**
  * 
  */
@@ -18,8 +20,11 @@ public:
 
 	void AbilityActorInfoSet();
 
+	FEffectAssetTags EffectAssetTags;
 
 protected:
+
+	
 	/**
 	 * @brief  Delegate for when an effect is applied 
 	 * @param AbilitySystemComponent 
